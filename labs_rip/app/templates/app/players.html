@@ -1,0 +1,63 @@
+{% extends 'app/layout.html' %}
+{% load static %}
+
+{% block title %}
+Игрок
+{% endblock %}
+
+{% block content %}
+
+<div style="position: absolute; width: 589px; height: 380px; left: 63px; top: 141px;">
+    <h2 style="position: absolute; width: 123px; height: 159px; left: 42px; top: 92px; font-family: 'Righteous'; font-style: normal; font-weight: 400; font-size: 128px; line-height: 159px; text-align: center; color: #000000;">
+        {{data.number}}</h2>
+    <span style="position: absolute; width: 354px; height: 173px; left: 201px; top: 97px; font-family: 'Roboto'; font-style: normal; font-weight: 400; font-size: 32px; line-height: 38px; color: #000000;">
+        {{data.f_name}}</span>
+
+    <span style="position: absolute; font-family: Roboto; font-size: 64px; font-weight: 400; line-height: 75px; text-align: left; left: 201px; top: 135px;">
+        {{data.l_name}}</span>
+    <img style="position: absolute; width: 60px; height: 41px; left: 201px; top: 221px;"
+         src="{{data.country_image}}" alt="arg">
+    <span style="position: absolute; width: 158px; height: 38px; left: 294px; top: 224px; font-family: 'Roboto'; font-style: normal; font-weight: 400; font-size: 32px; line-height: 38px; color: #000000;">
+        {{data.country}}</span>
+
+</div>
+
+<div style="position: absolute; left: 15px; top: 533px;">
+    <div style="box-sizing: border-box; position: absolute; width: 247px; height: 103px; left: 0px; top: 0px; background: #EFEFF2; border: 1px solid #000000;">
+        <span style="position: absolute; width: 175px; height: 28px; left: 41px; top: 13px; font-family: 'Roboto'; font-style: normal; font-weight: 400; font-size: 24px; line-height: 28px; text-align: center; color: #AAA3A3;">
+            Дата рождения</span>
+        <span style="position: absolute; width: 122px; height: 28px; left: 57px; top: 51px; font-family: 'Roboto'; font-style: normal;font-weight: 400; font-size: 24px; line-height: 28px; text-align: center; color: #000000;">
+            {{data.date_birthday}}</span>
+    </div>
+    <div style="position: absolute; width: 247px; height: 103px; left: 247px; top: 0px; background: #EFEFF2; border: 1px solid #000000;">
+        <span style="position: absolute; width: 191px; height: 28px; left: 27px; top: 13px; font-family: 'Roboto'; font-style: normal; font-weight: 400; font-size: 24px; line-height: 28px; text-align: center; color: #AAA3A3;">
+            Место рождения</span>
+        <span style="position: absolute; width: 96px; height: 28px; left: 80px; top: 51px; font-family: 'Roboto'; font-style: normal; font-weight: 400; font-size: 24px; line-height: 28px; text-align: center; color: #000000;">
+            {{data.birth_place}}</span>
+    </div>
+    <div style="box-sizing: border-box; position: absolute; width: 196px; height: 103px; left: 494px; top: 0px; background: #EFEFF2; border: 1px solid #000000;">
+            <span style="position: absolute; width: 53px; height: 28px; left: 70px; top: 13px; font-family: 'Roboto'; font-style: normal; font-weight: 400; font-size: 24px; line-height: 28px; text-align: center; color: #AAA3A3;">
+                Рост</span>
+            <span style="position: absolute; width: 41px; height: 28px; left: 75px; top: 49px; font-family: 'Roboto'; font-style: normal; font-weight: 400; font-size: 24px; line-height: 28px; text-align: center; color: #000000;">
+                {{data.height}}</span>
+    </div>
+    <div style="box-sizing: border-box; position: absolute; width: 196px; height: 103px; left: 690px; top: 0px; background: #EFEFF2; border: 1px solid #000000;">
+        <span style="position: absolute; width: 41px; height: 28px; left: 75px; top: 15px; font-family: 'Roboto'; font-style: normal; font-weight: 400; font-size: 24px; line-height: 28px; text-align: center; color: #AAA3A3;">
+            Вес</span>
+        <span style="position: absolute; width: 27px; height: 28px; left: 82px; top: 48px; font-family: 'Roboto'; font-style: normal; font-weight: 400; font-size: 24px; line-height: 28px; text-align: center; color: #000000;">
+            {{data.weight}}</span>
+    </div>
+
+    <div style="position: absolute; width: 400px; height: 458px; left: 890px; bottom: -100px;">
+        <img style="position: absolute; width: 396px; height: 364px; left: 60px;top: 0px;"
+             src="http://127.0.0.1:9000/test/TerStegen.png" alt="pl img">
+        <div style="position: absolute; width: 456px; height: 92px; left: 40px; top: 364px; background: #0A1A55;">
+            <span style="position: absolute; width: 131px; height: 38px; left: 49px; top: 8px; font-family: 'Roboto'; font-style: normal; font-weight: 400; font-size: 32px; line-height: 38px; text-align: center; color: #767676;">
+                Позиция</span>
+            <span style="position: absolute; width: 203px; height: 38px; left: 13px; top: 48px; font-family: 'Roboto'; font-style: normal; font-weight: 400; font-size: 32px; line-height: 38px; text-align: center; color: #FFF0F0;">
+                {{data.position}}</span>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

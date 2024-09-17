@@ -1,0 +1,105 @@
+{% extends 'app/layout.html' %}
+{% load static %}
+
+{% block title %}
+Главная страница
+{% endblock %}
+
+{% block content %}
+
+<form style="text-align: center; margin-top: 40px" action="{% url 'search_url' %}" method="GET" enctype="multipart/form-data">
+
+    <input style="font-family: 'Roboto', sans-serif; width: 800px; height: 40px; border-radius: 10px; " placeholder="Введите имя игрока..." name="text" type="text">
+    <input style="font-family: 'Roboto', sans-serif; height: 40px; width: 70px; border-radius: 5px; " type="submit" value="Поиск" >
+</form>
+<h1 style="font-family: 'Roboto', sans-serif; font-weight: bold; font-size: 50px; margin-left: 130px; color: black ; margin-top: 70px">Спортсмены</h1>
+<div>
+    <ul style="display: grid; grid-template-columns: 440px 440px 440px; padding: 0; margin-left: 100px">
+        {% for player in data.players %}
+            <li class="card">
+                <img style="
+position: absolute;
+width: 296px;
+height: 272px;
+left: 0px;
+top: 0px;
+" src="{{ player.pic }}" alt="player img">
+                <a style=" text-decoration: none;
+position: absolute;
+width: 200px;
+height: 29px;
+left: 25px;
+top: 280px;
+
+font-family: 'Inria Serif';
+font-style: normal;
+font-weight: 700;
+font-size: 20px;
+line-height: 29px;
+/* identical to box height */
+text-align: left;
+
+color: #000000;" href="{% url 'player_url' player.id %}">{{ player.l_name }}</a>
+            <p style = "
+position: absolute;
+width: 145px;
+height: 29px;
+left: 25px;
+top: 309px;
+
+font-family: 'Inria Serif';
+font-style: italic;
+font-weight: 400;
+font-size: 20px;
+line-height: 29px;
+/* identical to box height */
+text-align: left;
+
+color: #000000;
+">{{ player.position }}</p>
+            <p style="position: absolute;
+width: 40px;
+height: 58px;
+left: 243px;
+top: 280px;
+
+font-family: 'Inria Serif';
+font-style: italic;
+font-weight: 400;
+font-size: 40px;
+line-height: 58px;
+/* identical to box height */
+text-align: center;
+
+color: #250CB5;">{{ player.number }}</p>
+            </li>
+        {% empty %}
+            <li style="font-family: 'Roboto', sans-serif; color: white">По Вашему поиску результатов не найдено</li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div style="margin-left: 65px; position: fixed; bottom: 10px;">
+    <a href="{% url 'basket_url' %}" style="text-decoration: none;">
+        <img style="background-color: rgb(252, 221, 159);
+                    height: 70px; width: 70px;
+                    border-radius: 50%;
+                    box-shadow: 0 0 15px;
+                    rgba(111, 78, 55, 1);"
+             src="http://127.0.0.1:9000/test/basket2.png"
+             alt="store icon">
+        <div style="display: inline-block;
+                  position: relative;
+                  text-align: center;
+                  width: 25px;
+                  height: 25px;
+                  border-radius: 50%;
+                  background: rgb(166, 123, 91);
+                  border: 0.5px solid white;
+                  left: -35px; top: 30px"
+            >
+        <p style="font-family: 'Roboto', sans-serif; color: white; font-weight: bold; font-size: 17px">1</p>
+        </div>
+    </a>
+</div>
+{% endblock %}
