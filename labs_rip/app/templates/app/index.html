@@ -7,9 +7,9 @@
 
 {% block content %}
 
-<form style="text-align: center; margin-top: 40px" action="{% url 'search_url' %}" method="GET" enctype="multipart/form-data">
+<form style="text-align: center; margin-top: 40px" action="{% url 'home_url' %}" method="GET" enctype="multipart/form-data">
 
-    <input style="font-family: 'Roboto', sans-serif; width: 800px; height: 40px; border-radius: 10px; " placeholder="Введите имя игрока..." name="text" type="text">
+    <input style="font-family: 'Roboto', sans-serif; width: 800px; height: 40px; border-radius: 10px; " placeholder="Введите имя игрока..." name="last_name" type="text">
     <input style="font-family: 'Roboto', sans-serif; height: 40px; width: 70px; border-radius: 5px; " type="submit" value="Поиск" >
 </form>
 <h1 style="font-family: 'Roboto', sans-serif; font-weight: bold; font-size: 50px; margin-left: 130px; color: black ; margin-top: 70px">Спортсмены</h1>
@@ -80,7 +80,7 @@ color: #250CB5;">{{ player.number }}</p>
 </div>
 
 <div style="margin-left: 65px; position: fixed; bottom: 10px;">
-    <a href="{% url 'basket_url' %}" style="text-decoration: none;">
+    <a href="{% url 'basket_url' data.team_id %}" style="text-decoration: none;">
         <img style="background-color: rgb(252, 221, 159);
                     height: 70px; width: 70px;
                     border-radius: 50%;
@@ -98,7 +98,7 @@ color: #250CB5;">{{ player.number }}</p>
                   border: 0.5px solid white;
                   left: -35px; top: 30px"
             >
-        <p style="font-family: 'Roboto', sans-serif; color: white; font-weight: bold; font-size: 17px">1</p>
+        <p style="font-family: 'Roboto', sans-serif; color: white; font-weight: bold; font-size: 17px">{{ data.count_players }}</p>
         </div>
     </a>
 </div>

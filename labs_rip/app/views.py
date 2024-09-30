@@ -4,30 +4,34 @@ from django.shortcuts import render
 from django.shortcuts import render
 
 PLAYERS = [
-            {'f_name': 'Marc','l_name': 'TER STEGEN', 'pic': 'http://127.0.0.1:9000/test/TerStegen.png', 'id': 1, 'position': 'GOALKEEPER', 'country': 'Германия', 'date_birthday': '21-05-2000', 'number': '1', 'country_image':'http://127.0.0.1:9000/test/germany.svg','height': '185', 'weight': '75','birth_place': 'Мюнхен'},
-            {'f_name': 'Gonzalez','l_name': 'PEDRI', 'pic': 'http://127.0.0.1:9000/test/Pedri.png', 'id': 2, 'position': 'MIDFIELDER', 'number': '8'},
-            {'f_name': 'Pablo','l_name': 'GAVI', 'pic': 'http://127.0.0.1:9000/test/Gavi.png', 'id': 3, 'position': 'MIDFIELDER', 'number': '6'},
-            {'f_name': 'Lamine','l_name': 'YAMAL', 'pic': 'http://127.0.0.1:9000/test/Yamal.png', 'id': 4, 'position': 'FORWARD', 'number': '19'}
+            {'f_name': 'Евгений', 'l_name': 'ТАБАХОВ', 'pic': 'http://127.0.0.1:9000/test/zheka.jpg', 'id': 1, 'position': 'Нападающий', 'country': 'Россия', 'date_birthday': '11-10-2004', 'number': '9', 'country_image': 'http://127.0.0.1:9000/test/Russia.png', 'height': '178', 'weight': '67','birth_place': 'Тушино',
+             'biography': 'Евгений Табахов родился и вырос в Тушино, одном из живописных районов Москвы. С раннего возраста он проявлял интерес к спорту, и его родители решили отдать его в секцию футбола, когда ему было всего шесть лет. Первые шаги на поле он сделал в местной детской команде «Тушино-2000», где быстро выделился среди сверстников благодаря своим навыкам и страсти к игре.С каждым годом Евгений становился все более уверенным и техничным игроком. Его тренеры отмечали не только его физические данные, но и умение читать игру. В 2018 году он был приглашен в академию одного из известных московских клубов, где продолжил развивать свои способности. Там он научился работать в команде и стал настоящим лидером на поле.'},
+            {'f_name': 'Тимофей', 'l_name': 'ПРОНЧЕНКО', 'pic': 'http://127.0.0.1:9000/test/Tima.jpg', 'id': 2, 'position': 'Нападающий','country': 'Россия', 'date_birthday': '28-07-2004', 'number': '8', 'country_image': 'http://127.0.0.1:9000/test/Russia.png', 'height': '180', 'weight': '75','birth_place': 'Девяткино',
+             'biography': 'Тимофей Пронченко родился и вырос в небольшом поселке Девяткино, расположенном недалеко от Санкт-Петербурга. С раннего возраста он проявлял интерес к спорту, а особенно к футболу. Вдохновленный играми местной команды и матчами по телевизору, Тимофей начал играть с друзьями во дворе, мечтая стать настоящим футболистом.Когда ему исполнилось шесть лет, родители записали его в детскую футбольную секцию «Девяткино», где он быстро показал свои способности. Его тренеры отмечали его скорость, ловкость и умение работать в команде. Вскоре Тимофей стал одним из лучших игроков своей возрастной группы.'},
+            {'f_name': 'Роберт', 'l_name': 'САЙФУТДИНОВ', 'pic': 'http://127.0.0.1:9000/test/Rob.jpg', 'id': 3, 'position': 'Полузащитник','country': 'Россия','date_birthday': '19-12-2004', 'number': '6', 'country_image': 'http://127.0.0.1:9000/test/Russia.png', 'height': '183', 'weight': '73', 'birth_place': 'Казань',
+             'biography':'Роберт Сайфутдинов родился и вырос в Казани, в семье, где спорт всегда занимал важное место. С раннего возраста он проявлял интерес к футболу, подражая своим кумирам из местных команд и знаменитым игрокам, которые выступали на международной арене.В возрасте пяти лет Роберт начал заниматься футболом в местной детской спортивной школе. Его тренеры сразу заметили его природный талант и целеустремленность. Он быстро освоил основы игры и стал выделяться среди сверстников благодаря своей скорости, технике и умению читать игру.В 2016 году Роберт был приглашен в академию одного из казанских футбольных клубов, где его навыки продолжали развиваться. Он принимал участие в различных турнирах и соревнованиях, завоевывая призовые места и награды. В 2021 году его команда стала чемпионом республиканского турнира, что стало значимым достижением для юного футболиста.'},
+            {'f_name': 'Владимир', 'l_name': 'ЕВМЕНОВ', 'pic': 'http://127.0.0.1:9000/test/Vova.jpg', 'id': 4, 'position': 'Защитник', 'country': 'Россия', 'date_birthday': '27-07-2004', 'number': '7', 'country_image': 'http://127.0.0.1:9000/test/Russia.png', 'height': '178', 'weight': '67', 'birth_place': 'Химки',
+             'biography':'Владимир Евменов родился и вырос в Химках, небольшом городе, известном своей спортивной атмосферой. С детства он проявлял интерес к футболу, играя с друзьями во дворе и подражая своим кумирам. В возрасте шести лет Владимир начал заниматься футболом в местной спортивной школе, где его талант быстро стал заметен.С первых тренировок Владимир выделялся своей быстротой и ловкостью. Он играл на позиции нападающего и уже в юном возрасте начал забивать множество голов. Тренеры отмечали его упорство и желание постоянно улучшать свои навыки. В 2015 году он стал частью юношеской команды «Химки», где продолжил развиваться как игрок.'}
 ]
 
-REQUESTS = [
+TEAM = [
     {'id': 1, 'tournaments': ['Лига Чемпионов', 'Лига Европы', 'Лига Конференций'], 'players_id': [1, 2]}
 ]
 
 def home(request):
-    return render(request, 'app/index.html', {'data' : {
-        'players': PLAYERS,
-    }})
-
-def search(request):
-    fname = request.GET['text']
+    count_players = len(TEAM[0]['players_id'])
+    fname = request.GET.get('last_name', "")
+    team_id = TEAM[0]['id']
     pl_filtered = PLAYERS
     if fname != "":
         pl_filtered = list(filter(lambda x: fname.lower() in x['l_name'].lower(), PLAYERS))
-
-    return render(request, 'app/search.html', {'data' : {
+    return render(request, 'app/index.html', {'data' : {
         'players': pl_filtered,
+        'count_players': count_players,
+        'team_id': team_id
     }})
+
+
 
 def player(request, id):
     plr = list(filter(lambda x: x['id'] == id, PLAYERS))[0]
@@ -42,6 +46,7 @@ def player(request, id):
     weight = plr['weight']
     birth_place = plr['birth_place']
     pic = plr['pic']
+    biography = plr['biography']
     return render(request, 'app/players.html', {'data' : {
         'f_name': f_name,
         'l_name': l_name,
@@ -55,10 +60,12 @@ def player(request, id):
         'weight': weight,
         'birth_place': birth_place,
         'pic': pic,
+        'biography': biography
     }})
 
-def basket(request):
+
+def basket(request, id):
     return render(request, 'app/basket.html', {'data' : {
         'players': PLAYERS,
-        'requests': REQUESTS,
+        'team': TEAM,
     }})

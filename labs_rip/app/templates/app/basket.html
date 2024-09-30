@@ -7,84 +7,49 @@
 
 {% block content %}
 
-<h1 style="font-family: 'Roboto', sans-serif; font-weight: bold; font-size: 50px; margin-left: 100px; color: black;text-align: center; margin-top: 70px">Моя заявка</h1>
-<div style="display: block; margin-left: 120px; font-family: 'Roboto', sans-serif; margin-top: 40px">
-    <select style="border-radius: 5px; padding: 5px 5px; width: 440px; margin-bottom: 10px;">
-        <option>Выберите турнир</option>
-        <option>Лига Чемпионов</option>
-        <option>Лига Европы</option>
-        <option>Лига Конференций</option>
-    </select>
+<h1 style="font-family: 'Roboto', sans-serif; font-weight: bold; font-size: 50px; color: black; display: flex; justify-content: center; margin-top: 70px">Моя заявка</h1>
+<div style="display: flex; margin-left: 400px; margin-top: 40px">
+    <div style="display: inline-block; margin-left: 10px; width: 200px;  font-family: 'Roboto', sans-serif; border: solid; padding: 5px 5px 0px; border-radius: 10px">
+
+           Бауманец
+
+    </div>
+
+    <div style="display: inline-block; margin-left: 10px; width: 200px;  font-family: 'Roboto', sans-serif; border: solid; padding: 5px 5px 0px; border-radius: 10px">
+
+           Студенческая лига
+
+    </div>
+
+     <div style="display: block; margin-left: 10px; font-family: 'Roboto', sans-serif">
+     <input style="height: 40px; border-radius: 10px; width: 200px"   type="date"  value="2018-07-22" min="2018-01-01" />
+    </div>
+<!--    <div style=" margin-left: 10px">-->
+<!--        <button style=" height: 40px; border-radius: 10px">-->
+<!--            Сохранить-->
+<!--        </button>-->
+<!--    </div>-->
+
 </div>
 
 
-<div>
-    <ul style="display: grid; grid-template-columns: 440px 440px 440px; padding: 0; margin-left: 100px">
-        {% for request in data.requests %}
+<div style="display: flex; justify-content: center;">
+    <ul style="padding: 0; list-style-type: none;">
+        {% for request in data.team %}
             {% for player in data.players %}
                 {% if player.id in request.players_id %}
-                    <li class="card">
-                        <img style="
-        position: absolute;
-        width: 296px;
-        height: 272px;
-        left: 0px;
-        top: 0px;
-        " src="{{ player.pic }}" alt="player img">
-                        <a style=" text-decoration: none;
-        position: absolute;
-        width: 200px;
-        height: 29px;
-        left: 25px;
-        top: 280px;
-
-        font-family: 'Inria Serif';
-        font-style: normal;
-        font-weight: 700;
-        font-size: 20px;
-        line-height: 29px;
-        /* identical to box height */
-        text-align: left;
-
-        color: #000000;" href="{% url 'player_url' player.id %}">{{ player.l_name }}</a>
-                        <p style = "
-        position: absolute;
-        width: 145px;
-        height: 29px;
-        left: 25px;
-        top: 309px;
-
-        font-family: 'Inria Serif';
-        font-style: italic;
-        font-weight: 400;
-        font-size: 20px;
-        line-height: 29px;
-        /* identical to box height */
-        text-align: left;
-
-        color: #000000;
-        ">{{ player.position }}</p>
-                        <p style="position: absolute;
-        width: 40px;
-        height: 58px;
-        left: 243px;
-        top: 280px;
-
-        font-family: 'Inria Serif';
-        font-style: italic;
-        font-weight: 400;
-        font-size: 40px;
-        line-height: 58px;
-        /* identical to box height */
-        text-align: center;
-
-        color: #250CB5;">{{ player.number }}</p>
+                    <li style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); transition: 0.3s; border-radius: 5px; border-width: 3px; width: 650px; height: 170px; margin: 20px; background-color: white; text-decoration: none;">
+                        <img style="float: left; height: 170px; width: 170px;" src="{{ player.pic }}" alt="player img">
+                        <a style="font-family: 'Inria Serif'; font-style: normal; font-weight: 700; font-size: 20px; text-decoration: none; margin-top: 2px; margin-left: 20px; text-align: center; color: black; font-weight: medium; font-size: 25px" href="{% url 'player_url' player.id %}">{{ player.l_name }}</a>
+                        <p style="padding-left: 20px; -webkit-line-clamp: 3; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden;">{{ player.biography }}</p>
+                        <form action="{% url 'player_url' player.id %}">
+                            <input style="margin-left: 20px;" type="submit" value="Подробнее" />
+                        </form>
                     </li>
                 {% endif %}
             {% empty %}
                 <li style="font-family: 'Roboto', sans-serif; color: white">По Вашему поиску результатов не найдено</li>
             {% endfor %}
-
         {% empty %}
             <li style="font-family: 'Roboto', sans-serif; color: white">По Вашему поиску результатов не найдено</li>
         {% endfor %}
