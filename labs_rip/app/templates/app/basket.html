@@ -35,24 +35,28 @@
 
 <div style="display: flex; justify-content: center;">
     <ul style="padding: 0; list-style-type: none;">
-        {% for request in data.team %}
-            {% for player in data.players %}
-                {% if player.id in request.players_id %}
+        {% if data.current_players %}
+            {% for player in data.current_players %}
                     <li style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); transition: 0.3s; border-radius: 5px; border-width: 3px; width: 650px; height: 170px; margin: 20px; background-color: white; text-decoration: none;">
-                        <img style="float: left; height: 170px; width: 170px;" src="{{ player.pic }}" alt="player img">
+                        <img style="float: left; height: 170px; width: 170px;" src="{{ player.image_player_url }}" alt="player img">
                         <a style="font-family: 'Inria Serif'; font-style: normal; font-weight: 700; font-size: 20px; text-decoration: none; margin-top: 2px; margin-left: 20px; text-align: center; color: black; font-weight: medium; font-size: 25px" href="{% url 'player_url' player.id %}">{{ player.l_name }}</a>
                         <p style="padding-left: 20px; -webkit-line-clamp: 3; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden;">{{ player.biography }}</p>
                         <form action="{% url 'player_url' player.id %}">
                             <input style="margin-left: 20px;" type="submit" value="Подробнее" />
                         </form>
                     </li>
-                {% endif %}
+
             {% empty %}
                 <li style="font-family: 'Roboto', sans-serif; color: white">По Вашему поиску результатов не найдено</li>
             {% endfor %}
-        {% empty %}
-            <li style="font-family: 'Roboto', sans-serif; color: white">По Вашему поиску результатов не найдено</li>
-        {% endfor %}
+ {% endif %}
     </ul>
+</div>
+<div style="display: flex; justify-content: center; margin-bottom: 20px;">
+    <form action="{% url 'del_team' %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" value="{{ data.req_id }}" name="team_id">
+        <button class="del-btn" type="submit">Удалить</button>
+    </form>
 </div>
 {% endblock %}

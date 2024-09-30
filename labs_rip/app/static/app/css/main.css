@@ -2,10 +2,43 @@
     box-sizing: border-box;
 
     width: 296px;
-    height: 367px;
+    height: 390px;
     left: 36px;
     top: 20px;
     margin-bottom: 40px;
     background: #F2F2F2;
     border: 1px solid #AEAEAE;
    }
+
+.add-btn{
+    width: 300px;
+    background: white;
+    color: #060F1E;
+    border-width: 0.5px;
+    margin-left: 25px;
+    margin-top: 5px;
+    transition: 0.5s;
+}
+
+.add-btn:hover{
+    transition: 0.5s;
+    background: #060F1E;
+    color: white;
+}
+
+.del-btn{
+    width: 100px;
+    background: white;
+    color: darkred;
+    border-width: 2px;
+    margin-left: 25px;
+    margin-top: 5px;
+    transition: 0.5s;
+    border-color: darkred;
+}
+
+.del-btn:hover{
+    transition: 0.5s;
+    background: darkred;
+    color: white;
+}

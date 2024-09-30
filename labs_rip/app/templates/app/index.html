@@ -23,7 +23,7 @@ width: 296px;
 height: 272px;
 left: 0px;
 top: 0px;
-" src="{{ player.pic }}" alt="player img">
+" src="{{ player.image_player_url }}" alt="player img">
                 <a style=" text-decoration: none;
 position: absolute;
 width: 200px;
@@ -39,7 +39,7 @@ line-height: 29px;
 /* identical to box height */
 text-align: left;
 
-color: #000000;" href="{% url 'player_url' player.id %}">{{ player.l_name }}</a>
+color: #000000;" href="/player/{{ player.id }}">{{ player.l_name }}</a>
             <p style = "
 position: absolute;
 width: 145px;
@@ -72,7 +72,20 @@ line-height: 58px;
 text-align: center;
 
 color: #250CB5;">{{ player.number }}</p>
-            </li>
+        <form style="position: absolute; left: 0px;top: 330px" action="{% url 'add_player' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" value="{{ player.id }}" name="player_id">
+                <button style="
+    width: 270px;
+    background: white;
+    color: #060F1E;
+    border-width: 0.5px;
+    margin-left: 12px;
+    margin-top: 15px;
+    border-radius: 10px;
+    transition: 0.5s;" type="submit">Добавить</button>
+            </form>
+        </li>
         {% empty %}
             <li style="font-family: 'Roboto', sans-serif; color: white">По Вашему поиску результатов не найдено</li>
         {% endfor %}
@@ -80,7 +93,7 @@ color: #250CB5;">{{ player.number }}</p>
 </div>
 
 <div style="margin-left: 65px; position: fixed; bottom: 10px;">
-    <a href="{% url 'basket_url' data.team_id %}" style="text-decoration: none;">
+    <a href="/basket/{{ data.team_id }}" style="text-decoration: none;">
         <img style="background-color: rgb(252, 221, 159);
                     height: 70px; width: 70px;
                     border-radius: 50%;
@@ -98,7 +111,7 @@ color: #250CB5;">{{ player.number }}</p>
                   border: 0.5px solid white;
                   left: -35px; top: 30px"
             >
-        <p style="font-family: 'Roboto', sans-serif; color: white; font-weight: bold; font-size: 17px">{{ data.count_players }}</p>
+        <p style="font-family: 'Roboto', sans-serif; color: white; font-weight: bold; font-size: 17px">{{ data.count_pls }}</p>
         </div>
     </a>
 </div>
