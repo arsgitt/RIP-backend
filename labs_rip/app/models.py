@@ -5,26 +5,20 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-
-
 class Player(models.Model):
     class Status(models.TextChoices):
         ACTIVE = "active", "действует"
         DELETED = "deleted", "удален"
 
     status = models.CharField(max_length=15, choices=Status.choices, default=Status.ACTIVE)
-
     f_name = models.CharField(max_length=30)
     l_name = models.CharField(max_length=30)
-    biography = models.CharField(null=True)
     image_player_url = models.URLField()
     date_birthday = models.DateField()
     weight = models.IntegerField(max_length=10)
     height = models.IntegerField(max_length=10)
     position = models.CharField(max_length=30)
     number = models.IntegerField(max_length=10)
-    country = models.CharField(max_length=30)
-    img_country_url = models.URLField()
     birth_place = models.CharField(max_length=30)
 
     class Meta:
@@ -48,6 +42,7 @@ class Team(models.Model):
     completed_at = models.DateTimeField(null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     moderator = models.ForeignKey(User, null=True, related_name='moderator_id', on_delete=models.CASCADE)
+
     class Meta:
         managed = True
         db_table = 'teams'
@@ -55,8 +50,8 @@ class Team(models.Model):
 
 class TeamPlayer(models.Model):
     player = models.ForeignKey(Player, max_length=10, on_delete=models.CASCADE)
-    team = models.ForeignKey(Team, max_length=10, on_delete=models.CASCADE,related_name='team_players')
-    is_captain = models.BooleanField(null=True)
+    team = models.ForeignKey(Team, max_length=10, on_delete=models.CASCADE, related_name='team_players')
+    is_captain = models.BooleanField(null=True, default=False)
 
     class Meta:
         managed = True

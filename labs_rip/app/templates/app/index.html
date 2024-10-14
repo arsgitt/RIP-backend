@@ -87,13 +87,13 @@ color: #250CB5;">{{ player.number }}</p>
             </form>
         </li>
         {% empty %}
-            <li style="font-family: 'Roboto', sans-serif; color: white">По Вашему поиску результатов не найдено</li>
+            <li style="font-family: 'Roboto', sans-serif; color: black; list-style: none; margin-left: 30px; font-size: 20px">По Вашему поиску результатов не найдено</li>
         {% endfor %}
     </ul>
 </div>
-
+{% if data.team_id == 0 %}
 <div style="margin-left: 65px; position: fixed; bottom: 10px;">
-    <a href="/basket/{{ data.team_id }}" style="text-decoration: none;">
+    <a href="#" style="text-decoration: none; pointer-events: none;">
         <img style="background-color: rgb(252, 221, 159);
                     height: 70px; width: 70px;
                     border-radius: 50%;
@@ -115,4 +115,29 @@ color: #250CB5;">{{ player.number }}</p>
         </div>
     </a>
 </div>
+{% else %}
+<div style="margin-left: 65px; position: fixed; bottom: 10px;">
+    <a href="/team/{{ data.team_id }}" style="text-decoration: none;">
+        <img style="background-color: rgb(252, 221, 159);
+                    height: 70px; width: 70px;
+                    border-radius: 50%;
+                    box-shadow: 0 0 15px;
+                    rgba(111, 78, 55, 1);"
+             src="http://127.0.0.1:9000/test/basket2.png"
+             alt="store icon">
+        <div style="display: inline-block;
+                  position: relative;
+                  text-align: center;
+                  width: 25px;
+                  height: 25px;
+                  border-radius: 50%;
+                  background: rgb(166, 123, 91);
+                  border: 0.5px solid white;
+                  left: -35px; top: 30px"
+            >
+        <p style="font-family: 'Roboto', sans-serif; color: white; font-weight: bold; font-size: 17px">{{ data.count_pls }}</p>
+        </div>
+    </a>
+</div>
+{% endif %}
 {% endblock %}

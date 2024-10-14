@@ -15,7 +15,7 @@ def home(request):
         player_count = current_request.team_players.count()
 
     player_name = request.GET.get('last_name', '')
-    if player_name:
+    if player_name and Player.objects.filter(status='active').exists():
         players = Player.objects.filter(l_name__icontains=player_name)
     else:
         players = Player.objects.all()
@@ -32,26 +32,30 @@ def player(request, id):
     return render(request, 'app/players.html', {'current_player': current_player})
 
 
-def basket(request, id):
+def team(request, id):
     if id == 0:
-        return render(request, 'app/basket.html', {'current_request': None})
+        return render(request, 'app/team.html', {'current_request': None})
 
+    if Team.objects.filter(id=id, status='deleted').exists():
+        return redirect('/')
     if Team.objects.filter(id=id).exclude(status='draft').exists():
-        return render(request, 'app/basket.html', {'current_request': None})
+        return render(request, 'app/team.html', {'current_request': None})
 
     if not Team.objects.filter(id=id).exists():
-        return render(request, 'app/basket.html', {'current_request': None})
+        return render(request, 'app/team.html', {'current_request': None})
 
     req_id = id
     current_request = Team.objects.get(id=id)
     players_ids = TeamPlayer.objects.filter(team=current_request).values_list('player_id', flat=True)
     current_players = Player.objects.filter(id__in=players_ids)
-
-    return render(request, 'app/basket.html', {'data': {
+    is_captain = TeamPlayer.objects.filter(team=current_request).values_list('is_captain', flat=True)
+    return render(request, 'app/team.html', {'data': {
         'current_players': current_players,
         'current_request': current_request,
-        'req_id': req_id
+        'req_id': req_id,
+        # 'is_captain': is_captain,
     }})
+
 
 
 def add_player(request):

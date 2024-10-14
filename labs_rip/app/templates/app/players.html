@@ -8,17 +8,14 @@
 {% block content %}
 
 <div style="position: absolute; width: 589px; height: 380px; left: 63px; top: 141px;">
-    <h2 style="position: absolute; width: 123px; height: 159px; left: 42px; top: 92px; font-family: 'Righteous'; font-style: normal; font-weight: 400; font-size: 128px; line-height: 159px; text-align: center; color: #000000;">
+    <h2 style="position: absolute; width: 123px; height: 159px; left: 42px; top: 75px; font-family: 'Righteous'; font-style: normal; font-weight: 400; font-size: 128px; line-height: 159px; text-align: center; color: #000000;">
         {{current_player.number}}</h2>
     <span style="position: absolute; width: 354px; height: 173px; left: 201px; top: 97px; font-family: 'Roboto'; font-style: normal; font-weight: 400; font-size: 32px; line-height: 38px; color: #000000;">
         {{current_player.f_name}}</span>
 
     <span style="position: absolute; font-family: Roboto; font-size: 64px; font-weight: 400; line-height: 75px; text-align: left; left: 201px; top: 135px;">
         {{current_player.l_name}}</span>
-    <img style="position: absolute; width: 60px; height: 41px; left: 201px; top: 221px; border: solid;"
-         src="{{current_player.img_country_url}}" alt="arg">
-    <span style="position: absolute; width: 158px; height: 38px; left: 294px; top: 224px; font-family: 'Roboto'; font-style: normal; font-weight: 400; font-size: 32px; line-height: 38px; color: #000000;">
-        {{current_player.country}}</span>
+
 
 </div>
 
@@ -60,9 +57,6 @@
     </div>
 </div>
 
-<div style="background: #EFEFF2; border: solid; border-width: 0.5px; padding: 5px 10px; border-radius: 10px; position: absolute; bottom: -250px; margin-left: 120px; width: 1200px; font-family: 'Righteous'; font-style: normal;">
-    <h1 style="font-weight: 700;">Биография</h1>
-    <p style="color: black; font-weight: 500; font-size: 20px; margin: 0;">{{ current_player.biography }}</p>
-</div>
+
 
 {% endblock %}

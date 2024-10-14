@@ -10,7 +10,11 @@ from .models import TeamPlayer
 admin.site.register(Player)
 admin.site.register(Team)
 
+
 @admin.register(TeamPlayer)
 class TeamPlayerAdmin(admin.ModelAdmin):
     list_display = ('team_id', 'player_id')
     search_fields = ('team_id', 'player_id')
+
+
+
