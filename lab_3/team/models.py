@@ -43,6 +43,7 @@ class Team(models.Model):
     updated_at = models.DateTimeField(auto_now=True, null=True)
     completed_at = models.DateTimeField(null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    username = models.CharField(max_length=30, null=True)
     moderator = models.ForeignKey(User, null=True, related_name='moderator_id', on_delete=models.CASCADE)
 
     class Meta:
@@ -51,7 +52,7 @@ class Team(models.Model):
 
 
 class TeamPlayer(models.Model):
-    player = models.ForeignKey(Player, max_length=10, on_delete=models.CASCADE)
+    player = models.ForeignKey(Player, max_length=10, on_delete=models.CASCADE, related_name='player_player')
     team = models.ForeignKey(Team, max_length=10, on_delete=models.CASCADE, related_name='team_players')
     is_captain = models.BooleanField(null=True, default=False)
 

@@ -21,8 +21,8 @@ class AddImageSerializer(serializers.Serializer):
 class TeamSerializer(serializers.ModelSerializer):
     class Meta:
         model = Team
-        fields = ["pk","name_team", "competition", "date_competition", "status", "created_at", "updated_at", "completed_at", "user",
-                  "moderator"]
+        fields = ["pk","name_team", "competition", "date_competition", "status", "created_at", "updated_at",
+                  "completed_at", "username", "moderator"]
 
 
 class PutTeamSerializer(serializers.ModelSerializer):
@@ -32,8 +32,8 @@ class PutTeamSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Team
-        fields = ["name_team", "competition", "date_competition", "status", "created_at", "updated_at", "completed_at", "user",
-                  "moderator"]
+        fields = ["name_team", "competition", "date_competition", "status", "created_at", "updated_at", "completed_at",
+                  "username", "moderator"]
 
 
 class PlayerDetailSerializer(serializers.ModelSerializer):
@@ -46,8 +46,16 @@ class PlayerDetailSerializer(serializers.ModelSerializer):
 class PlayerListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Player
-        fields = ["pk", "status", "f_name", "l_name", "image_player_url", "date_birthday", "weight", "height", "position",
-                  "number", "birth_place"]
+        fields = ["pk", "f_name", "l_name", "image_player_url", "date_birthday", "weight", "height",
+                  "position", "number", "birth_place"]
+
+
+class PlayerListInTeamSerializer(serializers.ModelSerializer):
+    is_captain = serializers.IntegerField(required=False)
+    class Meta:
+        model = Player
+        fields = ["pk", "f_name", "l_name", "image_player_url", "date_birthday", "weight", "height",
+                  "position", "number", "birth_place","is_captain"]
 
 
 class ImageSerializer(serializers.ModelSerializer):

@@ -36,9 +36,9 @@ urlpatterns = [
     # удалить заявку (DELETE)
 
     # m-m
-    path(r'delete-from-team/<int:pk>/', views.EditTeamPlayer.as_view(), name='delete-from-team-by-id'),
+    path(r'delete-from-team/<int:team_pk>/player/<int:player_pk>/', views.EditTeamPlayer.as_view(), name='delete-from-team-by-id'),
     # удалить из заявки (DELETE)
-    path(r'add-is_captain/<int:pk>/', views.EditTeamPlayer.as_view(), name='add-is_captain-request-by-id'),
+    path(r'add-is_captain/<int:pk>/player/<int:player_pk>/', views.EditTeamPlayer.as_view(), name='add-is_captain-request-by-id'),
 
     # Users
     path('register/', views.UserRegistrationView.as_view(), name='register'),

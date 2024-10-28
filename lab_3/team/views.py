@@ -1,3 +1,4 @@
+from django.db.models import F
 from django.shortcuts import render
 
 # Create your views here.
@@ -27,11 +28,16 @@ class PlayerList(APIView):
         serializer = self.serializer_class(players, many=True)
         resp = serializer.data
         draft_request = Team.objects.filter(user=request.user, status='draft').first()
+        draft_request_id = Team.objects.filter(user=request.user, status='draft').first().id
+        count_players_in_draft = TeamPlayer.objects.filter(team=draft_request).values_list('player_id',
+                                                                                                 flat=True).count()
         if draft_request:
-            request_serializer = TeamSerializer(draft_request)  # Use RequestSerializer here
-            resp.append({'request': request_serializer.data})
+            resp.append({'draft_request_id': draft_request_id})  # Use RequestSerializer here
+            resp.append({'count': count_players_in_draft})
 
         return Response(resp, status=status.HTTP_200_OK)
+
+
 
 
 class PlayerDetail(APIView):
@@ -87,6 +93,7 @@ class AddPlayerView(APIView):
         if not Team.objects.filter(user=request.user, status='draft').exists():
             new_team = Team()
             new_team.user = request.user
+            new_team.username = request.user.username
             new_team.save()
 
         team_id = Team.objects.filter(user=request.user, status='draft').first().id
@@ -165,9 +172,10 @@ class ListTeams(APIView):
     def get(self, request):
         if 'date' in request.data and 'status' in request.data:
             teams = Team.objects.filter(updated_at__gte=request.data['date'], status=request.data['status']).exclude(
-                updated_at=None)
+                status__in=["deleted", "draft"])
         else:
-            teams = Team.objects.all()
+            teams = Team.objects.all().exclude(
+                status__in=["deleted", "draft"])
 
         teams_serializer = TeamSerializer(teams, many=True)
         return Response(teams_serializer.data, status=status.HTTP_200_OK)
@@ -177,21 +185,19 @@ class GetTeam(APIView):
     def get(self, request, pk):
         team = get_object_or_404(Team, pk=pk)
         serializer = TeamSerializer(team)
-
-        team_players = TeamPlayer.objects.filter(team=team)
-        player_ids = []
-        for team_player in team_players:
-            player_ids.append(team_player.player_id)
-
-        player_in_team = []
-        for id in player_ids:
-            player_in_team.append(get_object_or_404(Player, pk=id))
-
-        players_serializer = PlayerListSerializer(player_in_team, many=True)
         response = serializer.data
+
+        current_players = Player.objects.filter(
+            player_player__team=pk  # Проверка на соответствие стоянки
+        ).annotate(
+            is_captain=F('player_player__is_captain')  # Добавляем информацию о капитане из модели ParkingShip
+        ).order_by('id')
+
+        players_serializer = PlayerListInTeamSerializer(current_players, many=True)
         response['players'] = players_serializer.data
 
         return Response(response, status=status.HTTP_200_OK)
+
 
     def put(self, request, pk):
         serializer = PutTeamSerializer(data=request.data)
@@ -241,12 +247,14 @@ class ModerateTeam(APIView):
             if serializer.validated_data['accept'] == True and team.status:
                 team.status = 'completed'
                 team.moderator = request.user
+                team.completed_at = datetime.now()
 
 
             else:
                 team.status = 'cancelled'
                 team.moderator = request.user
                 team.completed_at = datetime.now()
+
             team.save()
             return Response(status=status.HTTP_200_OK)
         else:
@@ -266,19 +274,22 @@ class ModerateTeam(APIView):
 
 
 class EditTeamPlayer(APIView):
-    def delete(self, request, pk):
-        if 'player_id' in request.data:
-            record_m_to_m = get_object_or_404(TeamPlayer, team=pk, player=request.data['player_id'])
-            record_m_to_m.delete()
-            return Response(status=status.HTTP_200_OK)
-        else:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+    def delete(self, request, player_pk, team_pk):
+        # if 'player_id' in request.data:
+        #     record_m_to_m = get_object_or_404(TeamPlayer, team=team_pk, player=player_pk)
+        #     record_m_to_m.delete()
+        #     return Response(status=status.HTTP_200_OK)
+        # else:
+        #     return Response(status=status.HTTP_400_BAD_REQUEST)
+        record_m_to_m = get_object_or_404(TeamPlayer, team=team_pk, player=player_pk)
+        record_m_to_m.delete()
+        return Response(status=status.HTTP_200_OK)
 
-    def put(self, request, pk):
+    def put(self, request, player_pk, team_pk):
         # if not request.user.is_staff:
         #     return Response(status=status.HTTP_403_FORBIDDEN)
-        if 'player_id' in request.data and 'is_captain' in request.data:
-            record_m_to_m = get_object_or_404(TeamPlayer, team=pk, player=request.data['player_id'])
+        if 'is_captain' in request.data:
+            record_m_to_m = get_object_or_404(TeamPlayer, team=team_pk, player=player_pk)
             record_m_to_m.is_captain = request.data['is_captain']
             record_m_to_m.save()
             return Response(status=status.HTTP_200_OK)
