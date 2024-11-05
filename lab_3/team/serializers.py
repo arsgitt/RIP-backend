@@ -39,7 +39,7 @@ class PutTeamSerializer(serializers.ModelSerializer):
 class PlayerDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Player
-        fields = ["pk","status", "f_name", "l_name", "image_player_url", "date_birthday", "weight", "height", "position",
+        fields = ["pk", "status", "f_name", "l_name", "image_player_url", "date_birthday", "weight", "height", "position",
                   "number", "birth_place"]
 
 
